@@ -1,175 +1,596 @@
 <!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="hu">
 <head>
-<title>Kezdőlap</title>
+    <meta property="og:title" content="Szlezák Tamás - Személyes weboldal">
+    <meta property="meta" content="Gépgazda, Tech, Linux & Kertészet kedvelő">
+    <meta property="og:image" content="profilkep.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kezdőlap</title>
+    <style>
+        body {
+        padding-top: 20px;
+        }
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --card-border: #2e2e2e;
+            --accent-green: #2eccc0;
+            --accent-green-hover: #2e89cc;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --input-bg: #2a2a2a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        /* Fejléc / Navigáció */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--card-border);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-badge {
+            background-color: var(--accent-green);
+            color: #121212;
+            font-weight: bold;
+            font-size: 1.2rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-bar {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 8px 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            width: 200px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* Fő konténer */
+        .container {
+            max-width: 940px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        /* Borítókép és Profil szekció */
+        .profile-header {
+            background-color: var(--card-bg);
+            border-radius: 0 0 12px 12px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .cover-photo {
+            height: 220px;
+            background: linear-gradient(135deg, #1e1e1e 0%, #0d2818 50%, #2ecc71 100%);
+            position: relative;
+        }
+
+        .profile-main-info {
+            padding: 0 20px 20px 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: -80px;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--card-bg);
+            overflow: hidden;
+            background-color: #2a2a2a;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 12px;
+            color: #ffffff;
+        }
+
+        .profile-title {
+            color: var(--accent-green);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-bio {
+            max-width: 600px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-green);
+            color: #121212;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-green-hover);
+        }
+
+        .btn-secondary {
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-secondary:hover {
+            background-color: #353535;
+        }
+
+        /* Tabok nav */
+        .profile-tabs {
+            display: flex;
+            border-top: 1px solid var(--card-border);
+            padding: 0 20px;
+            gap: 10px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 12px 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            color: var(--accent-green);
+            border-bottom-color: var(--accent-green);
+        }
+
+        /* 2-oszlopos elrendezés */
+        .profile-content {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Kártyák */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .intro-list {
+            list-style: none;
+        }
+
+        .intro-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .intro-icon {
+            color: var(--accent-green);
+            width: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .social-chip {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: border-color 0.2s;
+        }
+
+        .social-chip:hover {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Posztok */
+
+        .small-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #333;
+        }
+
+        .post-input {
+            flex: 1;
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 10px 16px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .post {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .post-author {
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .post-body {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .post-badge {
+            display: inline-block;
+            background-color: #2e2e2e;
+            color: var(--accent-green);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .post-action {
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .post-action:hover {
+            background-color: var(--input-bg);
+            color: var(--accent-green);
+        }
+
+        .timeline-item {
+            border-left: 2px solid var(--accent-green);
+            padding-left: 12px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .timeline-role {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .timeline-company {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
-<body style="background-color:#CFCFCE;">
-      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; align-items: flex-start; padding: 20px;">
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 190px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 22px; color: white;">KEZDŐLAP <button onclick="document.location='index.html'">1</button>
-             <button onclick="document.location='index2.html'">2</button></p>
-             <p>
+
+    <div class="container">
+        
+
+
+        <!-- Fő tartalom: 2 Oszlop -->
+        <div class="profile-content">
+            
+            <!-- Bal oszlop: Névjegy & Infók -->
+            <div class="left-column">
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>Kezdőlap</span><div class="social-links"><a href="index.html" class="social-chip">1</a><a href="index2.html" class="social-chip">2</a></div>
+                    </div>
+             <div class="search-bar">
              <form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
              <input autocomplete="on" class="form-control search" name="q" placeholder="Google Keresés" required="required"  type="text">
              </form>
-             </p>
-             <p>
+             </div>
+             <div class="search-bar">
              <form action="https://duckduckgo.com/search" class="searchform" method="get" name="searchform" target="_blank">
              <input autocomplete="on" class="form-control search" name="q" placeholder="DuckDuckGo Keresés" required="required"  type="text">
              </form>
-             </p>
              </div>
-		     <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 370px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Közösségi</p>
-             <p>
-             <button onclick="document.location='https://www.facebook.com'">Facebook</button>
-             <button onclick="document.location='https://www.instagram.com/'">Instagram</button>
-			 <button onclick="document.location='https://www.threads.com/'">Threads</button>
-             </p>
-			 <p>
-			 <button onclick="document.location='https://www.facebook.com/messages'">Messenger</button>
-			 <button onclick="document.location='https://web.whatsapp.com'">Whatsapp</button>
-			 <button onclick="document.location='https://www.tiktok.com'">TikTok</button>	 
-			 </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 510px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Fiókok</p>
-             <p>
-             <button onclick="document.location='https://myaccount.google.com'">Google</button>
-             <button onclick="document.location='https://account.microsoft.com'">Microsoft</button>
-             <button onclick="document.location='https://account.samsung.com'">Samsung</button>
-			 <button onclick="document.location='https://account.apple.com'">Apple</button>
-             </p>
-             </div>
-		     <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 510px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Google</p>
-             <p>
-             <button onclick="document.location='https://drive.google.com'">Drive</button>
-             <button onclick="document.location='https://photos.google.com'">Fotók</button>
-             <button onclick="document.location='https://contacts.google.com'">Névjegyek</button>
-             <button onclick="document.location='https://keep.google.com'">Jegyzetek</button>
-			 </p>
-		     <p>
-             <button onclick="document.location='https://translate.google.com'">Fordító</button>
-             <button onclick="document.location='https://gemini.google.com'">Gemini</button>
-             <button onclick="document.location='https://www.google.com/android/find'">Telefon keresése</button>
-             </p>
-             </div>
-		     <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 230px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Mail</p>
-             <p>
-             <button onclick="document.location='https://mail.google.com'">Gmail</button>
-             <button onclick="document.location='https://outlook.live.com'">Outlook</button>
-             <button onclick="document.location='https://www.icloud.com/mail'">iCloud</button>
-             <button onclick="document.location='https://app.tuta.com'">Tuta</button>
-             </p>
-			 <p>
-			 <button onclick="document.location='https://mail.proton.me'">Proton Mail</button>	 
-			 </p>
-             </div>
-		     <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 510px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Eszközök</p>
-             <p>
-             <button onclick="document.location='https://vault.bitwarden.com'">Bitwarden</button>
-             <button onclick="document.location='https://www.icloud.com'">iCloud</button>
-             <button onclick="document.location='https://my.pcloud.com'">pCloud</button>
-			 </p>
-			 <p>
-		     <button onclick="document.location='http://192.168.64.1'">Router</button>
-			 <button onclick="document.location='https://github.com/'">GitHub</button> 
-             </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 640px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Pénzügyek és hivatalos</p>
-             <p>
-	         <button onclick="document.location='https://www.mbhbank.hu'">MBH</button>
-             <button onclick="document.location='https://www.unicreditbank.hu'">UniCredit</button>
-             <button onclick="document.location='https://www.revolut.com/hu-HU/'">Revolut</button>
-             <button onclick="document.location='https://wise.com'">Wise</button>
-		     </p>
-             <p>
-		     <button onclick="document.location='https://magan.otpportalok.hu'">OTP Portálok</button>
-			 <button onclick="document.location='https://www.groupama.hu'">Groupama</button>
-             <button onclick="document.location='https://simple.hu'">Simple</button>
-             </p>
-             <p>
-             <button onclick="document.location='https://fiok.yettel.hu'">Yettel</button>
-             <button onclick="document.location='https://www.one.hu/one-fiok'">One</button>
-			 <button onclick="document.location='https://onlineugyintezes.mvmnext.hu'">MVM Next</button>
-             <button onclick="document.location='https://bacsviz.eforgalom.hu'">Bácsvíz</button>
-             </p>
-             <p>
-			 <button onclick="document.location='https://my.antiktv.hu/'">Antikom</button>
-             <button onclick="document.location='https://ugyfelkapu.gov.hu/'">Ügyfélkapu</button>
-             <button onclick="document.location='https://eszja.nav.gov.hu/app/login/#login'">eSZJA</button>
-             <button onclick="document.location='https://ugyfelportal.nav.gov.hu'">NAV</button>
-             </p>
-             <p>
-<button onclick="document.location='https://netberlet.mininform.hu/szolnok/site/login'">Parkolás</button> 
-             <button onclick="document.location='https://www.eeszt.gov.hu/oldalvalaszto.jsp'">EESZT</button>
-			 <button onclick="document.location='https://portal.medicarebiztosito.hu/'">MEDICARE</button>
-             </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 520px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Szórakozás</p>
-             <p>
-	         <button onclick="document.location='https://webtv.tv/hu/tv'">TV</button>
-             <button onclick="document.location='https://www.youtube.com'">YouTube</button>
-             <button onclick="document.location='https://music.youtube.com'">YouTube Music</button>
-             <button onclick="document.location='https://myonlineradio.hu'">Rádió</button>      
-             </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 1020px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Hírek és időjárás</p>
-             <p>
-             <button onclick="document.location='https://kontroll.hu/'">Kontroll</button>
-             <button onclick="document.location='https://telex.hu/'">Telex</button>
-             <button onclick="document.location='https://24.hu/'">24.hu</button>
-             <button onclick="document.location='https://444.hu/'">444.hu</button>
-             <button onclick="document.location='https://hvg.hu/'">HVG</button>
-             </p>
-             <p>
-             <button onclick="document.location='https://www.idokep.hu/idojaras/Szolnok'">Időkép</button>
-             <button onclick="document.location='https://www.met.hu'">HungaroMet</button>
-             <button onclick="document.location='https://www.metnet.hu'">MetNet</button>
-             <button onclick="document.location='https://www.sat24.com/hu-hu'">SAT24</button>
-             </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 1020px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Hasznos</p>
-             <p>
-             <button onclick="document.location='https://www.speedtest.net'">Speedtest</button>
-             <button onclick="document.location='https://downdetector.hu'">Downdetector</button>
-             <button onclick="document.location='https://www.mafab.hu'">Mafab</button>
-             </p>
-             <p>
-             <button onclick="document.location='https://tok-shop.hu'">TokShop</button>
-             <button onclick="document.location='https://www.eredetiajandekok.hu'">Eredeti Ajándékok</button>
-             <button onclick="document.location='https://m3digital.hu'">M3 DIGITAL</button>
-             </p>
-             </div>
-		     <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 630px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">Munka</p>
-             <p>
-             <button onclick="document.location='https://ringo.gedeonrichter.com'">RinGO</button>
-             <button onclick="document.location='https://outlook.office.com.mcas.ms/mail'">Mail</button>
-             <button onclick="document.location='https://performancemanager.successfactors.eu/sf/start'">SuccessFactors</button>
-			 </p>
-			 <p>
-			 <button onclick="document.location='https://gedeon.lightning.force.com/lightning/n/TMS_Dashboards'">TMS Dashboards</button>
-			 <button onclick="document.location='https://password.rgk.corp'">rgk\szlezakt</button>
-			 </p>
-			 <p>
-             <button onclick="document.location='https://barcode.tec-it.com/en/QRCode?data=felhaszn%C3%A1l%C3%B3n%C3%A9v%5Ctjelsz%C3%B3'">QR Code</button>
-             <button onclick="document.location='http://vdsz.hu'">VDSZ</button>
-<button onclick="document.location='http://10.172.159.10/PET'">Octavic</button>
-             </p>
-             </div>
-             <div style="background-color: black; border: 1px solid #ccc; padding: 15px; border-radius: 8px; max-width: 1020px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-             <p style="font-weight: bold; font-size: 20px; color: white;">© 2026 created by <a href="https://tamszl90.github.io/tamsszle/">tamsszle</a> <button onclick="document.location='about.html'">Leírás / Description</button></p>
-             </div>
-</body>		  
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Fiókok</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://myaccount.google.com" target="_blank" class="social-chip">Google</a>
+                        <a href="https://account.microsoft.com" target="_blank" class="social-chip">Microsoft</a>
+                        <a href="https://account.samsung.com" target="_blank" class="social-chip">Samsung</a>
+                        <a href="https://account.apple.com" target="_blank" class="social-chip">Apple</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Közösségi</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com" target="_blank" class="social-chip">Facebook</a>
+                        <a href="https://www.instagram.com" target="_blank" class="social-chip">Instagram</a>
+                        <a href="https://www.threads.com" target="_blank" class="social-chip">Threads</a>
+                        <a href="https://www.facebook.com/messages" target="_blank" class="social-chip">Messenger</a>
+                        <a href="https://web.whatsapp.com" target="_blank" class="social-chip">Whatsapp</a>
+                        <a href="https://www.tiktok.com" target="_blank" class="social-chip">TikTok</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Mail</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://mail.google.com" target="_blank" class="social-chip">Gmail</a>
+                        <a href="https://outlook.live.com" target="_blank" class="social-chip">Outlook</a>
+                        <a href="https://www.icloud.com/mail" target="_blank" class="social-chip">iCloud</a>
+                        <a href="https://app.tuta.com" target="_blank" class="social-chip">Tuta</a>
+                        <a href="https://mail.proton.me" target="_blank" class="social-chip">Proton</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Munka</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://ringo.gedeonrichter.com" target="_blank" class="social-chip">RinGO</a>
+                        <a href="https://outlook.office.com.mcas.ms/mail" target="_blank" class="social-chip">Mail</a>
+                        <a href="https://performancemanager.successfactors.eu/sf/start" target="_blank" class="social-chip">SuccessFactors</a>
+                        <a href="https://gedeon.lightning.force.com/lightning/n/TMS_Dashboards" target="_blank" class="social-chip">TMS Dashboards</a>
+                        <a href="https://password.rgk.corp" target="_blank" class="social-chip">rgk\szlezakt</a>
+                        <a href="https://barcode.tec-it.com/en/QRCode?data=felhaszn%C3%A1l%C3%B3n%C3%A9v%5Ctjelsz%C3%B3" target="_blank" class="social-chip">QR Code</a>
+                        <a href="http://vdsz.hu" target="_blank" class="social-chip">VDSZ</a>
+                        <a href="http://10.172.159.10/PET" target="_blank" class="social-chip">Octavic</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Jobb oszlop: Hírfolyam / Posztok -->
+            <div class="right-column">
+
+                <!-- 1. Poszt: Bemutatkozás -->
+                <div class="card">
+                    <div class="post-title">
+                        <span>Google</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://drive.google.com" target="_blank" class="social-chip">Drive</a>
+                        <a href="https://photos.google.com" target="_blank" class="social-chip">Fotók</a>
+                        <a href="https://contacts.google.com" target="_blank" class="social-chip">Névjegyek</a>
+                        <a href="https://keep.google.com" target="_blank" class="social-chip">Jegyzetek</a>
+                        <a href="https://translate.google.com" target="_blank" class="social-chip">Fordító</a>
+                        <a href="https://gemini.google.com" target="_blank" class="social-chip">Gemini</a>
+                        <a href="https://www.google.com/android/find" target="_blank" class="social-chip">Telefon keresése</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Eszközök</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://vault.bitwarden.com" target="_blank" class="social-chip">Bitwarden</a>
+                        <a href="https://www.icloud.com" target="_blank" class="social-chip">iCloud</a>
+                        <a href="https://my.pcloud.com" target="_blank" class="social-chip">pCloud</a>
+                        <a href="http://192.168.64.1" target="_blank" class="social-chip">Router</a>
+                        <a href="https://github.com" target="_blank" class="social-chip">GitHub</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Pénzügyek és hivatalos</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.mbhbank.hu" target="_blank" class="social-chip">MBH</a>
+                        <a href="https://www.unicreditbank.hu" target="_blank" class="social-chip">UniCredit</a>
+                        <a href="https://www.revolut.com/hu-HU" target="_blank" class="social-chip">Revolut</a>
+                        <a href="https://wise.com" target="_blank" class="social-chip">Wise</a>
+                        <a href="https://magan.otpportalok.hu" target="_blank" class="social-chip">OTP Portálok</a>
+                        <a href="https://www.groupama.hu" target="_blank" class="social-chip">Groupama</a>
+                        <a href="https://simple.hu" target="_blank" class="social-chip">Simple</a>
+                        <a href="https://fiok.yettel.hu" target="_blank" class="social-chip">Yettel</a>
+                        <a href="https://www.one.hu/one-fiok" target="_blank" class="social-chip">One</a>
+                        <a href="https://onlineugyintezes.mvmnext.hu" target="_blank" class="social-chip">MVM Next</a>
+                        <a href="https://bacsviz.eforgalom.hu" target="_blank" class="social-chip">Bácsvíz</a>
+                        <a href="https://my.antiktv.hu" target="_blank" class="social-chip">Antikom</a>
+                        <a href="https://ugyfelkapu.gov.hu" target="_blank" class="social-chip">Ügyfélkapu</a>
+                        <a href="https://eszja.nav.gov.hu/app/login/#login" target="_blank" class="social-chip">eSZJA</a>
+                        <a href="https://ugyfelportal.nav.gov.hu" target="_blank" class="social-chip">NAV</a>
+                        <a href="https://netberlet.mininform.hu/szolnok/site/login" target="_blank" class="social-chip">Parkolás</a>
+                        <a href="https://www.eeszt.gov.hu/oldalvalaszto.jsp" target="_blank" class="social-chip">EESZT</a>
+                        <a href="https://portal.medicarebiztosito.hu" target="_blank" class="social-chip">MEDICARE</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Szórakozás</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://webtv.tv/hu/tv" target="_blank" class="social-chip">TV</a>
+                        <a href="https://www.youtube.com" target="_blank" class="social-chip">YouTube</a>
+                        <a href="https://music.youtube.com" target="_blank" class="social-chip">YouTube Music</a>
+                        <a href="https://myonlineradio.hu" target="_blank" class="social-chip">Rádió</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Hírek és időjárás</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://kontroll.hu" target="_blank" class="social-chip">Kontroll</a>
+                        <a href="https://telex.hu" target="_blank" class="social-chip">Telex</a>
+                        <a href="https://24.hu" target="_blank" class="social-chip">24.hu</a>
+                        <a href="https://444.hu" target="_blank" class="social-chip">444.hu</a>
+                        <a href="https://hvg.hu" target="_blank" class="social-chip">HVG</a>
+                        <a href="https://www.idokep.hu/idojaras/Szolnok" target="_blank" class="social-chip">Időkép</a>
+                        <a href="https://www.met.hu" target="_blank" class="social-chip">HungaroMet</a>
+                        <a href="https://www.metnet.hu" target="_blank" class="social-chip">MetNet</a>
+                        <a href="https://www.sat24.com/hu-hu" target="_blank" class="social-chip">SAT24</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="post-title">
+                        <span>Hasznos</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.speedtest.net" target="_blank" class="social-chip">Speedtest</a>
+                        <a href="https://downdetector.hu" target="_blank" class="social-chip">Downdetector</a>
+                        <a href="https://www.mafab.hu" target="_blank" class="social-chip">Mafab</a>
+                        <a href="https://tok-shop.hu" target="_blank" class="social-chip">TokShop</a>
+                        <a href="https://www.eredetiajandekok.hu" target="_blank" class="social-chip">Eredeti Ajándékok</a>
+                        <a href="https://m3digital.hu" target="_blank" class="social-chip">M3 DIGITAL</a>
+                    </div>
+                </div>
+
+                </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+            <p>© 2026 created by <a href="https://tamszl90.github.io/tamsszle/">tamsszle</a></p>
+        </footer>
+
+    </div>
+
+</body>
 </html>
