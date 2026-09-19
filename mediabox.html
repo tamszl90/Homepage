@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <link rel="icon" type="image/png" href="icon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDIABOX</title>
+    <style>
+        :root {
+            --bg-color: #0f111a;
+            --card-bg: #181b26;
+            --card-border: #282d3f;
+            --input-bg: #12141d;
+            --text-main: #e6e8ee;
+            --text-muted: #8b93a7;
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+            --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, #1e2338 0%, #0f111a 70%);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-top: 30px;
+            padding-bottom: 40px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .profile-content {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 850px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Kártyák */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title, .post-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            color: #ffffff;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            text-transform: uppercase;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Keresősávok */
+        .search-bar {
+            margin-bottom: 12px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        /* Közösségi és Média gombok (Csempék) */
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-chip {
+            background-color: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .social-chip:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-gradient);
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        footer a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <div class="profile-content">
+            
+            <!-- Bal oszlop: Keresők és Közösségi média -->
+            <div class="left-column">
+                
+                <div class="card">
+                    <div class="card-title">
+                        <span>MEDIABOX</span>
+                    </div>
+                    <div class="search-bar">
+                        <form action="https://www.google.com/search" class="searchform" method="get" target="_blank">
+                            <input autocomplete="off" class="form-control search" name="q" placeholder="Google Keresés..." required="required" type="text">
+                        </form>
+                    </div>
+                    <div class="search-bar">
+                        <form action="https://duckduckgo.com/search" class="searchform" method="get" target="_blank">
+                            <input autocomplete="off" class="form-control search" name="q" placeholder="DuckDuckGo Keresés..." required="required" type="text">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="post-title">
+                        <span>Közösségi</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com" target="_blank" class="social-chip">Facebook</a>
+                        <a href="https://www.instagram.com" target="_blank" class="social-chip">Instagram</a>
+                        <a href="https://www.threads.com" target="_blank" class="social-chip">Threads</a>
+                        <a href="https://www.facebook.com/messages" target="_blank" class="social-chip">Messenger</a>
+                        <a href="https://web.whatsapp.com" target="_blank" class="social-chip">WhatsApp</a>
+                        <a href="https://www.tiktok.com" target="_blank" class="social-chip">TikTok</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Jobb oszlop: Média, Hírek és Google szolgáltatások -->
+            <div class="right-column">
+
+                <div class="card">
+                    <div class="post-title">
+                        <span>Szórakozás & Média</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.yetteltv.hu" target="_blank" class="social-chip">TV</a>
+                        <a href="https://myonlineradio.hu" target="_blank" class="social-chip">Rádió</a>
+                        <a href="https://www.youtube.com" target="_blank" class="social-chip">YouTube</a>
+                        <a href="https://music.youtube.com" target="_blank" class="social-chip">YT Music</a>
+                        <a href="https://videa.hu" target="_blank" class="social-chip">Videa</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="post-title">
+                        <span>Google Szolgáltatások</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://drive.google.com" target="_blank" class="social-chip">Drive</a>
+                        <a href="https://photos.google.com" target="_blank" class="social-chip">Fotók</a>
+                        <a href="https://contacts.google.com" target="_blank" class="social-chip">Névjegyek</a>
+                        <a href="https://keep.google.com" target="_blank" class="social-chip">Jegyzetek</a>
+                        <a href="https://translate.google.com" target="_blank" class="social-chip">Fordító</a>
+                        <a href="https://gemini.google.com" target="_blank" class="social-chip">Gemini</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="post-title">
+                        <span>Hírek és Időjárás</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://kontroll.hu" target="_blank" class="social-chip">Kontroll</a>
+                        <a href="https://telex.hu" target="_blank" class="social-chip">Telex</a>
+                        <a href="https://24.hu" target="_blank" class="social-chip">24.hu</a>
+                        <a href="https://444.hu" target="_blank" class="social-chip">444.hu</a>
+                        <a href="https://hvg.hu" target="_blank" class="social-chip">HVG</a>
+                        <a href="https://www.idokep.hu/idojaras/Szolnok" target="_blank" class="social-chip">Időkép</a>
+                        <a href="https://www.met.hu" target="_blank" class="social-chip">HungaroMet</a>
+                        <a href="https://www.metnet.hu" target="_blank" class="social-chip">MetNet</a>
+                        <a href="https://www.sat24.com/hu-hu" target="_blank" class="social-chip">SAT24</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+            <p>© 2026 MEDIABOX FROM <a href="https://tamszl90.github.io/tamsszle/">TAMSSZLE</a></p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
