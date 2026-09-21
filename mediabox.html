@@ -30,6 +30,7 @@
             background-color: var(--bg-color);
             background-image: radial-gradient(circle at 50% 0%, #1e2338 0%, #0f111a 70%);
             color: var(--text-main);
+            font-size: 28px;
             line-height: 1.6;
             padding-top: 30px;
             padding-bottom: 40px;
@@ -66,7 +67,7 @@
         }
 
         .card-title, .post-title {
-            font-size: 1.4rem;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: 1px;
             margin-bottom: 16px;
@@ -91,7 +92,7 @@
             border-radius: 12px;
             padding: 12px 16px;
             color: var(--text-main);
-            font-size: 0.95rem;
+            font-size: 28px;
             outline: none;
             transition: all 0.3s ease;
         }
@@ -103,8 +104,8 @@
 
         /* Közösségi és Média gombok (Csempék) */
         .social-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 12px;
             margin-top: 10px;
         }
@@ -113,15 +114,17 @@
             background-color: var(--input-bg);
             border: 1px solid var(--card-border);
             color: var(--text-main);
-            padding: 12px 16px;
+            padding: 10px 18px;
             border-radius: 12px;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 28px;
             font-weight: 600;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             text-align: center;
+            white-space: nowrap;
+            width: fit-content;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
@@ -188,7 +191,6 @@
                         <a href="https://www.instagram.com" target="_blank" class="social-chip">Instagram</a>
                         <a href="https://www.threads.com" target="_blank" class="social-chip">Threads</a>
                         <a href="https://www.facebook.com/messages" target="_blank" class="social-chip">Messenger</a>
-                        <a href="https://web.whatsapp.com" target="_blank" class="social-chip">WhatsApp</a>
                         <a href="https://www.tiktok.com" target="_blank" class="social-chip">TikTok</a>
                     </div>
                 </div>
