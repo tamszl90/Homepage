@@ -4,20 +4,18 @@
     <link rel="icon" type="image/png" href="icon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEDIABOX</title>
+    <title>HOMEPAGE</title>
     <style>
-        body {
-        padding-top: 20px;
-        }
-:root {
+        :root {
             --bg-color: #0f111a;
             --card-bg: #181b26;
             --card-border: #282d3f;
             --input-bg: #12141d;
             --text-main: #e6e8ee;
             --text-muted: #8b93a7;
-            --accent-primary: #6366f1;
+            --accent-primary: #3498db;
             --accent-primary-hover: #a855f7;
+            --sidebar-width: 240px;
         }
 
         * {
@@ -32,241 +30,169 @@
             color: var(--text-main);
             line-height: 1.6;
             padding-bottom: 40px;
+            padding-top: 20px;
+            display: flex;
         }
 
-        /* Fejléc / Navigáció */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        /* BAL OLDALI SÁV (SIDEBAR) */
+        .sidebar {
+            width: var(--sidebar-width);
             background-color: var(--card-bg);
-            border-bottom: 1px solid var(--card-border);
-            padding: 10px 20px;
+            border-right: 1px solid var(--card-border);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
-            align-items: center;
+            padding: 20px 15px;
+            z-index: 1000;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        /* Fent: Oldal címe */
+        .sidebar-header {
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .logo-badge {
-            background-color: var(--accent-green);
-            color: #121212;
-            font-weight: bold;
+        .sidebar-header h2 {
             font-size: 1.2rem;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            color: var(--text-main);
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
+        /* Középen: Linkek egymás alatt */
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 100%;
+        }
+
+        .sidebar-link {
+            display: block;
+            text-align: center;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            border-color: var(--accent-primary);
+        }
+
+        /* FŐ TARTALOM TERÜLETE (Tolva a sáv miatt) */
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0 20px;
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        /* MOBIL NÉZET ALKALMAZKODÁS */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                position: relative;
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--card-border);
+                margin-bottom: 20px;
+            }
+
+            .container {
+                margin-left: 0;
+                width: 100%;
+                padding: 0 10px;
+            }
+        }
+
+        /* Search Bar Stílusok */
         .search-bar {
             background-color: transparent;
             border: 0px solid var(--card-border);
             border-radius: 20px;
-            padding: 8px 10px;
+            padding: 4px 0;
             color: var(--text-muted);
             font-size: 0.9rem;
-            width: 200px;
-        }
-
-        .nav-icons {
-            display: flex;
-            gap: 15px;
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        /* Fő konténer */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 10px;
-        }
-
-        /* Borítókép és Profil szekció */
-        .profile-header {
-            background-color: var(--card-bg);
-            border-radius: 0 0 12px 12px;
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .cover-photo {
-            height: 220px;
-            background: linear-gradient(135deg, #1e1e1e 0%, #0d2818 50%, #2ecc71 100%);
-            position: relative;
-        }
-
-        .profile-main-info {
-            padding: 0 20px 20px 20px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-top: -80px;
-        }
-
-        .avatar-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 4px solid var(--card-bg);
-            overflow: hidden;
-            background-color: #2a2a2a;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-
-        .avatar-container img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            margin-bottom: 6px;
         }
 
-        .profile-name {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-top: 12px;
-            color: #ffffff;
-        }
-
-        .profile-title {
-            color: var(--accent-green);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .profile-bio {
-            max-width: 600px;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 8px 18px;
+        .search-bar input {
+            width: 100%;
+            padding: 8px 12px;
             border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: background-color 0.2s;
-        }
-
-        .btn-primary {
-            background-color: var(--accent-green);
-            color: #121212;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-green-hover);
-        }
-
-        .btn-secondary {
+            border: 1px solid var(--card-border);
             background-color: var(--input-bg);
             color: var(--text-main);
-            border: 1px solid var(--card-border);
         }
 
-        .btn-secondary:hover {
-            background-color: #353535;
-        }
-
-        /* Tabok nav */
-        .profile-tabs {
-            display: flex;
-            border-top: 1px solid var(--card-border);
-            padding: 0 20px;
-            gap: 10px;
-            overflow-x: auto;
-        }
-
-        .tab {
-            padding: 12px 16px;
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            border-bottom: 3px solid transparent;
-        }
-
-        .tab.active {
-            color: var(--accent-green);
-            border-bottom-color: var(--accent-green);
-        }
-
-        /* 2-oszlopos elrendezés */
+        /* Főszerkezet: Bal oldal fix 400px, jobb oldal tartalomhoz igazodó rugalmas blokk */
         .profile-content {
-            display: grid;
-            grid-template-columns: 360px 1fr;
+            display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            align-items: flex-start;
         }
 
-        @media (max-width: 768px) {
-            .profile-content {
-                grid-template-columns: 1fr;
-            }
+        .left-column {
+            width: 400px;
+            flex-shrink: 0;
         }
 
-        /* Kártyák */
+        /* JOBB OLDALI OSZLOP: Kártyák pontosan a tartalom méretéhez igazodva */
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* Kártyák: Csak akkora szélesség és magasság, amit a tartalom igényel */
         .card {
-            font-size: 30px;
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 10px;
             padding: 16px;
-            margin-bottom: 20px;
+            max-width: 1200px;
+            width: fit-content;
+            align-self: flex-start;
         }
 
-        .card-title {
+        .left-column .card {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .card-title, .post-title {
             font-size: 30px;
             font-weight: 700;
             margin-bottom: 12px;
-            color: var(--accent-green);
+            color: var(--text-main);
             border-bottom: 1px solid var(--card-border);
             padding-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .intro-list {
-            list-style: none;
-        }
-
-        .intro-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-            color: var(--text-main);
-        }
-
-        .intro-icon {
-            color: var(--accent-green);
-            width: 20px;
-            text-align: center;
-            font-weight: bold;
         }
 
         .social-links {
@@ -291,103 +217,8 @@
         }
 
         .social-chip:hover {
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        /* Posztok */
-
-        .small-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: #333;
-        }
-
-        .post-input {
-            flex: 1;
-            background-color: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 10px 16px;
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
-
-        .post {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .post-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .post-author {
-            font-weight: 700;
-            color: #ffffff;
-        }
-
-        .post-time {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .post-body {
-            font-size: 0.95rem;
-            margin-bottom: 12px;
-            color: var(--text-main);
-        }
-
-        .post-badge {
-            display: inline-block;
-            background-color: #2e2e2e;
-            color: var(--accent-green);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .post-action {
-            cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 4px;
-        }
-
-        .post-action:hover {
-            background-color: var(--input-bg);
-            color: var(--accent-green);
-        }
-
-        .timeline-item {
-            border-left: 2px solid var(--accent-green);
-            padding-left: 12px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .timeline-date {
-            font-size: 0.8rem;
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        .timeline-role {
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .timeline-company {
-            color: var(--text-muted);
-            font-size: 0.88rem;
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
         }
 
         footer {
@@ -396,38 +227,63 @@
             font-size: 0.85rem;
             margin-top: 30px;
         }
+
+        footer a {
+            color: var(--text-muted);
+        }
     </style>
 </head>
 <body>
 
+    <!-- BAL OLDALI SÁV -->
+    <aside class="sidebar">
+        <!-- Fent: Oldal neve -->
+        <div class="sidebar-header">
+            <h2>HOMEPAGE</h2>
+        </div>
+
+        <!-- Középen: Linkek egymás alatt -->
+        <nav class="sidebar-menu">
+            <a href="index.html" class="sidebar-link">Tamás</a>
+            <a href="index2.html" class="sidebar-link">Sándor</a>
+            <a href="mediabox.html" class="sidebar-link active">Mediabox</a>
+        </nav>
+
+        <!-- Alsó kitöltő rész -->
+        <div></div>
+    </aside>
+
+    <!-- FŐ TARTALOM KONTÉNER -->
     <div class="container">
         
-
-
-        <!-- Fő tartalom: 2 Oszlop -->
         <div class="profile-content">
             
-            <!-- Bal oszlop: Névjegy & Infók -->
+            <!-- Bal oszlop: Keresés & Fiókok / Munka -->
             <div class="left-column">
                 
-                <div class="card">
-                    <div class="card-title">
-                        <span>MEDIABOX</span><div class="social-links"><a href="index.html" class="social-chip">1</a><a href="index2.html" class="social-chip">2</a><a href="mediabox.html" class="social-chip">3</a></div>
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h2 style="font-size: 30px;">MEDIABOX</h2>
                     </div>
-             <div class="search-bar">
-             <form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
-             <input autocomplete="on" class="form-control search" name="q" placeholder="Google Keresés" required="required"  type="text">
-             </form>
-             </div>
-             <div class="search-bar">
-             <form action="https://duckduckgo.com/search" class="searchform" method="get" name="searchform" target="_blank">
-             <input autocomplete="on" class="form-control search" name="q" placeholder="DuckDuckGo Keresés" required="required"  type="text">
-             </form>
-             </div>
+                
+                <div class="card" style="margin-bottom: 20px;">
+                    <div class="card-title">
+                        <span>🔍 Keresés</span>
+                    </div>
+                    <div class="search-bar">
+                        <form action="https://www.google.com/search" class="searchform" method="get" name="searchform" target="_blank">
+                            <input autocomplete="on" class="form-control search" name="q" placeholder="Google Keresés" required="required" type="text">
+                        </form>
+                    </div>
+                    <div class="search-bar">
+                        <form action="https://duckduckgo.com/search" class="searchform" method="get" name="searchform" target="_blank">
+                            <input autocomplete="on" class="form-control search" name="q" placeholder="DuckDuckGo Keresés" required="required" type="text">
+                        </form>
+                    </div>
                 </div>
-                <div class="card">
+
+                <div class="card" style="margin-bottom: 20px;">
                     <div class="post-title">
-                        <span>👥 KÖZÖSSÉGI</span>
+                        <span>👥 Közösségi</span>
                     </div>
                     <div class="social-links">
                         <a href="https://www.facebook.com" target="_blank" class="social-chip">Facebook</a>
@@ -439,13 +295,13 @@
 
             </div>
 
-            <!-- Jobb oszlop: Hírfolyam / Posztok -->
+            <!-- Jobb oszlop: Link gyűjtemények -->
             <div class="right-column">
 
-                <!-- 1. Poszt: Bemutatkozás -->
+
                 <div class="card">
                     <div class="post-title">
-                        <span>🎬 SZÓRAKOZÁS</span>
+                        <span>🎬 Szórakozás</span>
                     </div>
                     <div class="social-links">
                         <a href="https://ittott.tv" target="_blank" class="social-chip">TV</a>
@@ -456,9 +312,10 @@
                         <a href="https://videa.hu" target="_blank" class="social-chip">Videa</a>
                     </div>
                 </div>
+                
                 <div class="card">
                     <div class="post-title">
-                        <span>🧩 GOOGLE</span>
+                        <span>🧩 Google</span>
                     </div>
                     <div class="social-links">
                         <a href="https://drive.google.com" target="_blank" class="social-chip">Drive</a>
@@ -469,9 +326,10 @@
                         <a href="https://gemini.google.com" target="_blank" class="social-chip">Gemini</a>
                     </div>
                 </div>
+
                 <div class="card">
                     <div class="post-title">
-                        <span>📰 HÍREK ÉS IDŐJÁRÁS</span>
+                        <span>📰 Hírek és időjárás</span>
                     </div>
                     <div class="social-links">
                         <a href="https://kontroll.hu" target="_blank" class="social-chip">Kontroll</a>
@@ -485,9 +343,10 @@
                         <a href="https://www.sat24.com/hu-hu" target="_blank" class="social-chip">SAT24</a>
                     </div>
                 </div>
-                    <div class="card">
+
+                <div class="card">
                     <div class="post-title">
-                        <span>🛠️ ESZKÖZÖK</span>
+                        <span>🛠️ Eszközök</span>
                     </div>
                     <div class="social-links">
                         <a href="https://vault.bitwarden.com" target="_blank" class="social-chip">Bitwarden</a>
@@ -496,12 +355,6 @@
                         <a href="https://www.speedtest.net" target="_blank" class="social-chip">Speedtest</a>
                         <a href="https://downdetector.hu" target="_blank" class="social-chip">Downdetector</a>
                     </div>
-                </div>
-
-                </div>
-
-                    </div>
-
                 </div>
 
             </div>
